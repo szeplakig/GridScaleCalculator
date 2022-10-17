@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Grid Scale Calculator</title>
+    </head>
+    <body>
+        <label for="width">Width (px):</label>
+        <input id="width" name="width" type="number" value="2000"/>
+        <label for="height">Height (px):</label>
+        <input id="height" name="height" type="number" value="2000"/>
+        <label for="grid">Grid size (px):</label>
+        <input id="grid" name="grid" type="number" value="100"/>
+        <p id="output"></p>
+        <button onclick="calc()">Calculate</button>
+        <script>
+            const range_min = 0.25;
+            const range_max = 4.0;
+            const step = 0.0000001;
+            const width = document.getElementById("width");
+            const height = document.getElementById("height");
+            const grid = document.getElementById("grid");
+            const output = document.getElementById("output");
+            
+            function calc() {
+                const wv = parseFloat(width.value);
+                const hv = parseFloat(height.value);
+                const gv = parseInt(grid.value);
+                let best = undefined;
+                for (let z = range_min; z <= range_max; z += step) {
+                    const wz = (wv * z % gv);
+                    const hz = (hv * z % gv);
+                    if (best === undefined || (wz < best[1] && hz < best[2])){
+                        best = [z, wz, hz]
+                    }
+                }
+                output.innerHTML = "Scale factor: " + best[0] + "<br/>Scaled width: " + wv * best[0] + ", Scaled height: " + hv * best[0]
+            }
+        </script>
+    </body>
+</html>

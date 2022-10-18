@@ -1,104 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Grid Scale Calculator</title>
-        <style>
-            body {
-               background-color: rgb(17,24,39); 
-            }
-            label {
-                margin-top: 5px;
-                display: block;
-                margin-bottom: 0.5rem;
-                color: #D1D5D8;
-                font-size: 0.875rem;
-                line-height: 1.25rem;
-                font-weight: 500;                
-            }
-            input {
-                display: block;
-                padding: 0.625rem;
-                background-color: #374151;
-                font-size: 0.875rem;
-                line-height: 1.25rem;
-                color: #9CA3AF;
-                width: 100%;
-                border-radius: 0.5rem;
-                border-width: 1px;
-                border-color: #4B5563;
-            }
-            .content {
-                padding-left: 15%;
-                padding-right: 15%;
-                margin-top: 15px;
-            }
-            button {
-                padding-top: 0.5rem;
-                padding-bottom: 0.5rem;
-                padding-left: 1rem;
-                padding-right: 1rem;
-                background-color: #19396c;
-                color: #9CA3AF;
-                font-weight: 700;
-                border-radius: 0.25rem;
-                border-style: none;
-                margin-top: 15px;
-            }
-            button:hover {
-                background-color:#2c61b5;
-                color: #ffffff;
-            }
-            p {
-                color: #9CA3AF;
-            }
-            /*Make the ugly arrow things go away*/
-            input::-webkit-outer-spin-button,
-            input::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-            input[type=number] {
-                -moz-appearance: textfield;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="content">
-            <label for="width">Width (px):</label>
-            <input id="width" name="width" type="number" value="2000"/>
-            <label for="height">Height (px):</label>
-            <input id="height" name="height" type="number" value="2000"/>
-            <label for="grid">Grid size (px):</label>
-            <input id="grid" name="grid" type="number" value="100"/>
-            <button onclick="calc()">Calculate</button>
-            <p id="output"></p>
-        </div>
-        <script>
-            const range_min = 0.75;
-            const range_max = 2.0;
-            const step = 0.0000001;
-            const width = document.getElementById("width");
-            const height = document.getElementById("height");
-            const grid = document.getElementById("grid");
-            const output = document.getElementById("output");
-            
-            function calc() {
-                const wv = parseFloat(width.value);
-                const hv = parseFloat(height.value);
-                const gv = parseInt(grid.value);
-                let best = undefined;
-                for (let z = range_min; z <= range_max; z += step) {
-                    const wz = (wv * z % gv);
-                    const hz = (hv * z % gv);
-                    if (best === undefined || (wz < best[1] && hz < best[2])){
-                        best = [z, wz, hz]
-                    }
-                }
-                output.innerHTML = "Scale factor: " + best[0] + "<br/>Scaled width: " + wv * best[0] + ", Scaled height: " + hv * best[0]
-            }
-        </script>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grid Scale Calculator</title>
+    <style>
+      body {
+        background-color: rgb(17, 24, 39);
+      }
+      label {
+        margin-top: 5px;
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #d1d5d8;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 500;
+      }
+      input {
+        display: block;
+        padding: 0.625rem;
+        background-color: #374151;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        color: #9ca3af;
+        width: 100%;
+        border-radius: 0.5rem;
+        border-width: 1px;
+        border-color: #4b5563;
+      }
+      .content {
+        padding-left: 15%;
+        padding-right: 15%;
+        margin-top: 15px;
+      }
+      button {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        background-color: #19396c;
+        color: #9ca3af;
+        font-weight: 700;
+        border-radius: 0.25rem;
+        border-style: none;
+        margin-top: 15px;
+      }
+      button:hover {
+        background-color: #2c61b5;
+        color: #ffffff;
+      }
+      p {
+        color: #9ca3af;
+      }
+      /*Make the ugly arrow things go away*/
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <label for="width">Width (px):</label>
+      <input id="width" name="width" type="number" value="2000" />
+      <label for="height">Height (px):</label>
+      <input id="height" name="height" type="number" value="2000" />
+      <label for="grid">Grid size (px):</label>
+      <input id="grid" name="grid" type="number" value="100" />
+      <button onclick="calc()">Calculate</button>
+      <p id="output"></p>
+    </div>
+    <script src="scripts.js"></script>
+  </body>
 </html>
